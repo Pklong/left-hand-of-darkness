@@ -1,0 +1,24 @@
+module.exports = {
+  entry: "./app.js",
+  output: {
+    filename: "bundle.js"
+  },
+  devtool: "eval-source-map",
+  resolve: {
+    extensions: [".js"]
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["react", "env"]
+          }
+        }
+      }
+    ]
+  }
+}
