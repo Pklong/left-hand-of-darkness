@@ -1,0 +1,32 @@
+{
+  "name": "left-hand-of-darkness",
+  "version": "1.0.0",
+  "description": "In a nutshell, a React JS app that integrates with GitHub.",
+  "main": "index.js",
+  "scripts": {
+    "webpack": "node_modules/webpack/bin/webpack.js --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pklong/left-hand-of-darkness.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Pklong/left-hand-of-darkness/issues"
+  },
+  "homepage": "https://github.com/Pklong/left-hand-of-darkness#readme",
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.24.1",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-router-dom": "^4.2.2",
+    "redux": "^3.7.2",
+    "webpack": "^3.6.0"
+  }
+}
