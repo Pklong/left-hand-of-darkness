@@ -1,6 +1,6 @@
 import React from "react"
 
-const UserProfile = () => {
+const UserProfile = ({ token }) => {
   return <article>I am user</article>
 }
 
