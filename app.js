@@ -6,38 +6,18 @@ import {
   Link,
   withRouter
 } from "react-router-dom"
-import config from "./config"
+import { Client_ID } from "./util/api"
 
-class DisplayGithub extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      user: null
-    }
-  }
+import UserProfile from "./components/user_profile"
 
-  componentDidMount() {
-    fetch("https://api.github.com/user?access_token=" + this.props.token)
-      .then(u => u.json())
-      .then(d => this.setState({ user: d }))
-  }
-
-  render() {
-    if (this.state.user === null) {
-      return false
-    }
-    const { avatar_url, login } = this.state.user
-
-    return (
-      <article>
-        <h1>{login}</h1>
-        <img src={avatar_url} />
-      </article>
-    )
-  }
+const Login = () => {
+  const queryString = `?client_id=${Client_ID}&scope=public_repo`
+  return (
+    <a href={`https://github.com/login/oauth/authorize${queryString}`}>Login</a>
+  )
 }
 
-class FetchGithub extends Component {
+class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -46,44 +26,17 @@ class FetchGithub extends Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:8080/auth?code=" + this.props.code)
-      .then(d => d.text())
-      .then(accessToken => this.setState({ accessToken }))
-      .catch(err => console.error(err))
-  }
-  render() {
-    if (this.state.accessToken) {
-      return <DisplayGithub token={this.state.accessToken} />
-    } else {
-      return null
+    const { location: { search } } = this.props
+    if (search.startsWith("?code")) {
+      fetch("http://localhost:8080/auth?code=" + search.split("=")[1])
+        .then(d => d.text())
+        .then(accessToken => this.setState({ accessToken }))
+        .catch(err => console.error(err))
     }
   }
-}
-
-const Auth = ({ component: Component, path, location: { search } }) => {
-  return (
-    <Route
-      path={path}
-      render={props =>
-        search.startsWith("?code") ? (
-          <Component {...props} />
-        ) : (
-          <Redirect to="/" />
-        )}
-    />
-  )
-}
-
-const App = ({ location: { search } }) => {
-  const queryString = `?client_id=${config.Client_ID}&scope=public_repo`
-  if (search.startsWith("?code")) {
-    return <FetchGithub code={search.split("=")[1]} />
-  } else {
-    return (
-      <a href={`https://github.com/login/oauth/authorize${queryString}`}>
-        Login
-      </a>
-    )
+  render() {
+    const token = this.state.accessToken
+    return token ? <UserProfile token={token} /> : <Login />
   }
 }
 
@@ -93,6 +46,7 @@ const Root = () => {
       <main>
         <h1>Left Hand of Darkness</h1>
         <Route exact path="/" component={App} />
+        <Route exact path="/" component={Profile} />
       </main>
     </Router>
   )
