@@ -1,7 +1,7 @@
 module.exports = {
-  entry: "./root.js",
+  entry: "./app.js",
   output: {
-    filename: "./dist/bundle.js"
+    filename: "./dist/[name].bundle.js"
   },
   devtool: "eval-source-map",
   resolve: {
