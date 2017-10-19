@@ -21,7 +21,6 @@ class App extends Component {
   }
   render() {
     const token = this.props.loggedIn
-    console.log(token)
     return token ? <UserProfile token={token} /> : <Login />
   }
 }
