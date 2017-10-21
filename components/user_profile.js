@@ -5,13 +5,12 @@ import { fetchProfile } from "../actions/profile"
 
 class UserProfile extends Component {
   componentDidMount() {
-    const { fetchProfile, token } = this.props
-    fetchProfile(token)
+    const { fetchProfile } = this.props
+    fetchProfile()
   }
 
   render() {
     const { profile: { name } } = this.props
-    debugger
     return <article>{name !== undefined ? name : "Loading..."}</article>
   }
 }
@@ -20,8 +19,8 @@ const mapStateToProps = state => ({
   profile: state.profile
 })
 
-const mapDispatchToProps = dispatch => ({
-  fetchProfile: token => dispatch(fetchProfile(token))
+const mapDispatchToProps = (dispatch, { token }) => ({
+  fetchProfile: () => dispatch(fetchProfile(token))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserProfile)

@@ -7,7 +7,8 @@ import { BrowserRouter as Router, Route } from "react-router-dom"
 import App from "./components/left_hand"
 
 const Root = () => {
-  const store = createStore()
+  const token = window.localStorage.getItem("gh_token")
+  const store = token ? createStore({ session: token }) : createStore()
   return (
     <Router>
       <Provider store={store}>
