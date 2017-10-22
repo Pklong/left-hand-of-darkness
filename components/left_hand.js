@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import Login from "./login"
-import UserProfile from "./user_profile"
+import UserProfile from "./profile/user_profile"
 
 import { login as loginUser } from "../actions/session"
 
