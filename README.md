@@ -5,7 +5,7 @@ In a nutshell, a React JS app that integrates with GitHub.
 ## User Stories
 
 * User can view their own GitHub profile information
-* User can view a list of GitHub their repos
+* User can view a list of their GitHub repos
 * User can view a list of GitHub issues per repository
   * User can determine whether the issue is opened or closed
 * User can create a new GitHub issue
