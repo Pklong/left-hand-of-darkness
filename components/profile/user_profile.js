@@ -10,9 +10,7 @@ class UserProfile extends Component {
   }
 
   render() {
-    const {
-      profile: { name, avatar_url, bio, public_repos, repos_url }
-    } = this.props
+    const { profile: { name, avatar_url, bio, public_repos } } = this.props
     if (name === undefined) return null
     return (
       <article>
@@ -22,6 +20,7 @@ class UserProfile extends Component {
             <figcaption>{name}</figcaption>
           </figure>
           <p>{bio}</p>
+          <p>{public_repos}</p>
         </section>
         <section>
           <RepoIndex />
@@ -31,12 +30,16 @@ class UserProfile extends Component {
   }
 }
 
-const mapStateToProps = ({ profile }) => ({
-  profile
-})
+const mapStateToProps = ({ profile }) => {
+  return {
+    profile
+  }
+}
 
-const mapDispatchToProps = (dispatch, { token }) => ({
-  fetchProfile: () => dispatch(fetchProfile(token))
-})
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchProfile: () => dispatch(fetchProfile())
+  }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserProfile)

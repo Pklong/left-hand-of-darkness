@@ -20,14 +20,14 @@ class App extends Component {
     }
   }
   render() {
-    const token = this.props.loggedIn
+    const { token } = this.props
     return token ? <UserProfile token={token} /> : <Login />
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = ({ session }) => {
   return {
-    loggedIn: state.session
+    token: session
   }
 }
 
