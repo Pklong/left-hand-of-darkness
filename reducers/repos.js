@@ -11,10 +11,8 @@ export default (state = {}, action) => {
       return newState
 
     case RECEIVE_ISSUES:
-      if (action.issues.length === 0) {
-        return newState
-      }
-      newState[action.issues[0].repository_url].issues = action.issues
+      const { issues, repoUrl } = action
+      newState[repoUrl].issues = issues
       return newState
 
     default:
