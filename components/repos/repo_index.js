@@ -10,10 +10,10 @@ class RepoIndex extends Component {
   }
   render() {
     const repos = this.props.repos.map(repo => {
+      //          <IssueIndex repo={repo} />
       return (
         <li key={repo.id}>
           <p>{repo.name}</p>
-          <IssueIndex repo={repo} />
         </li>
       )
     })

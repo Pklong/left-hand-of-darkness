@@ -7,7 +7,7 @@ export const receiveRepos = repos => ({
   repos
 })
 
-export const fetchRepos = user => (dispatch, getState) =>
-  Api.fetchRepos(getState().session, user).then(repos =>
+export const fetchRepos = () => (dispatch, getState) =>
+  Api.fetchRepos(getState().session).then(repos =>
     dispatch(receiveRepos(repos))
   )
