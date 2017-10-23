@@ -7,11 +7,21 @@ const addTokenToUrl = url => token => `${url}?access_token=${token}`
 export const fetchProfile = token => {
   return fetch(addTokenToUrl("https://api.github.com/user")(token))
     .then(data => data.json())
-    .catch(err => console.err(err))
+    .catch(err => console.error(err))
 }
 
 export const fetchRepos = token => {
   return fetch(addTokenToUrl(`https://api.github.com/user/repos`)(token))
     .then(data => data.json())
-    .catch(err => console.err(err))
+    .catch(err => console.error(err))
+}
+
+export const fetchIssues = (token, repo) => {
+  return fetch(
+    addTokenToUrl(
+      `https://api.github.com/repos/${repo.owner.login}/${repo.name}/issues`
+    )(token)
+  )
+    .then(data => data.json())
+    .catch(err => console.error(err))
 }

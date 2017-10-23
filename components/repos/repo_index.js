@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { connect } from "react-redux"
 
 import { fetchRepos } from "../../actions/repos"
+import IssueIndex from "./issue_index.js"
 
 class RepoIndex extends Component {
   componentDidMount() {
@@ -9,7 +10,12 @@ class RepoIndex extends Component {
   }
   render() {
     const repos = this.props.repos.map(repo => {
-      return <li key={repo.id}>{repo.name}</li>
+      return (
+        <li key={repo.id}>
+          <p>{repo.name}</p>
+          <IssueIndex repo={repo} />
+        </li>
+      )
     })
     return (
       <section>
@@ -20,7 +26,7 @@ class RepoIndex extends Component {
 }
 
 const mapStateToProps = ({ repos }) => ({
-  repos
+  repos: Object.keys(repos).map(repo => repos[repo])
 })
 
 const mapDispatchToProps = dispatch => ({
