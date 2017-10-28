@@ -2,14 +2,18 @@ import React, { Component } from "react"
 import { connect } from "react-redux"
 
 import { fetchRepos } from "../../actions/repos"
+import { currentPageRepos } from "../../reducers/pagination"
 import IssueIndex from "./issue_index.js"
+import RepoNav from "./repo_nav"
 
 class RepoIndex extends Component {
   componentDidMount() {
-    this.props.fetchRepos()
+    const { fetchRepos, pageIndex: { current } } = this.props
+    fetchRepos(current)
   }
   render() {
-    const repos = this.props.repos.map(repo => {
+    const { repos, fetchRepos, pageIndex } = this.props
+    const repoArray = repos.map(repo => {
       //          <IssueIndex repo={repo} />
       return (
         <li key={repo.id}>
@@ -19,18 +23,22 @@ class RepoIndex extends Component {
     })
     return (
       <section>
-        <ul>{repos}</ul>
+        <ul>{repoArray}</ul>
+        <RepoNav fetchRepos={fetchRepos} index={pageIndex} />
       </section>
     )
   }
 }
 
-const mapStateToProps = ({ repos }) => ({
-  repos: Object.keys(repos).map(repo => repos[repo])
-})
+const mapStateToProps = ({ repos, pagination: { pages, pageIndex } }) => {
+  return {
+    repos: currentPageRepos(repos, pages, pageIndex.current),
+    pageIndex
+  }
+}
 
 const mapDispatchToProps = dispatch => ({
-  fetchRepos: () => dispatch(fetchRepos())
+  fetchRepos: page => dispatch(fetchRepos(page))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(RepoIndex)

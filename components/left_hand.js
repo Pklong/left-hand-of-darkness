@@ -13,6 +13,7 @@ class App extends Component {
   componentDidMount() {
     const { location: { search } } = this.props
     if (search.startsWith("?code")) {
+      // redirect callback with authentication code
       this.props
         .login(search.split("=")[1])
         .then(() => this.props.history.push("/"))
