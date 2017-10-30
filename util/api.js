@@ -1,3 +1,4 @@
+// TODO: Assumes local server for POST request to GitHub
 export const loginUser = code => {
   return fetch(`http://localhost:8080/auth?code=${code}`)
 }
@@ -9,9 +10,10 @@ const addPageToUrl = url => page => `${url}&page=${page}`
 const REGEXP = new RegExp(/page=(\d+)/)
 const parseLinkHeader = link => REGEXP.exec(link)[1]
 
+// transform link header into object with directions pointing to url, ex. {next: 'url-for-next-page'}
 const segmentLinkHeader = link => {
   if (!link) return {}
-  // transform link header into object with directions pointing to url, ex. {next: 'url-for-next-page'}
+
   return link
     .split(",")
     .map(seg => seg.split(";").map(s => s.trim()))
@@ -35,6 +37,7 @@ export const fetchRepos = (token, page) => {
     )
   )
     .then(data => {
+      // response returns two kinds of information (pagination and data) which feels bad?
       const link = data.headers.get("Link")
       const pageNavigation = segmentLinkHeader(link)
       pageNavigation.current = String(page)
