@@ -5,6 +5,7 @@ import { Provider } from "react-redux"
 import { BrowserRouter as Router, Route } from "react-router-dom"
 
 import App from "./components/left_hand"
+import RepoIndex from "./components/repos/repo_index"
 
 const Root = () => {
   const token = window.localStorage.getItem("gh_token")
@@ -14,7 +15,8 @@ const Root = () => {
       <Provider store={store}>
         <main>
           <h1>Left Hand of Darkness</h1>
-          <Route exact path="/" component={App} />
+          <Route path="/" component={App} />
+          <Route path="/repos" component={RepoIndex} />
         </main>
       </Provider>
     </Router>
