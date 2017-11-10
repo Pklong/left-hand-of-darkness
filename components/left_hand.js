@@ -1,9 +1,9 @@
-import React, { Component } from "react"
-import { connect } from "react-redux"
-import Login from "./login"
-import UserProfile from "./profile/user_profile"
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import Login from './login'
+import UserProfile from './profile/user_profile'
 
-import { login as loginUser } from "../actions/session"
+import { login as loginUser } from '../actions/session'
 
 class App extends Component {
   constructor(props) {
@@ -12,11 +12,11 @@ class App extends Component {
 
   componentDidMount() {
     const { location: { search } } = this.props
-    if (search.startsWith("?code")) {
+    if (search.startsWith('?code')) {
       // redirect callback with authentication code
       this.props
-        .login(search.split("=")[1])
-        .then(() => this.props.history.push("/"))
+        .login(search.split('=')[1])
+        .then(() => this.props.history.push('/'))
         .catch(err => console.error(err))
     }
   }
