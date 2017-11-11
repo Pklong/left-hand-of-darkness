@@ -16,7 +16,7 @@ class App extends Component {
       // redirect callback with authentication code
       this.props
         .login(search.split("=")[1])
-        .then(() => this.props.history.push("/"))
+        .then(() => this.props.history.push("/repos"))
         .catch(err => console.error(err))
     }
   }
