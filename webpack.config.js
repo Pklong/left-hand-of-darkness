@@ -16,6 +16,7 @@ module.exports = {
           loader: "babel-loader",
           options: {
             presets: ["react", "env"],
+            plugins: ["transform-object-rest-spread"],
             env: {
               production: {
                 presets: ["minify"]
