@@ -10,7 +10,7 @@ class UserProfile extends Component {
   }
 
   render() {
-    const { profile: { name, avatar_url, bio, public_repos } } = this.props
+    const { profile: { name, avatar_url, bio } } = this.props
     if (name === undefined) return null
 
     return (
@@ -20,8 +20,7 @@ class UserProfile extends Component {
             <img src={avatar_url} alt={name} />
             <figcaption>{name}</figcaption>
           </figure>
-          <p>Bio: {bio}</p>
-          <p>Public Repo Count: {public_repos}</p>
+          <p>{bio}</p>
         </section>
       </article>
     )
