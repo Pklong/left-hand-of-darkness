@@ -22,7 +22,7 @@ class App extends Component {
   }
   render() {
     const { token } = this.props
-    return token ? <UserProfile token={token} /> : <Login />
+    return token ? <UserProfile /> : <Login />
   }
 }
 
