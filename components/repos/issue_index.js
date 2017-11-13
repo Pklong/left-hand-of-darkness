@@ -9,7 +9,11 @@ class IssueIndex extends Component {
   }
 
   render() {
-    const issues = this.props.issues.map(issue => <li>{issue.title}</li>)
+    const issues = this.props.issues.map(issue => (
+      <li key={issue.id}>
+        {issue.title}, {issue.state}
+      </li>
+    ))
     return <ul>{issues}</ul>
   }
 }

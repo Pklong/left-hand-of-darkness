@@ -1,9 +1,10 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-
+import { Link } from "react-router-dom"
 import { fetchRepos } from "../../actions/repos"
 import { currentPageRepos } from "../../reducers/pagination"
-import IssueIndex from "./issue_index.js"
+
+import RepoItem from "./repo_item"
 import RepoNav from "./repo_nav"
 
 //TODO: Don't fetch if not authenticated
@@ -26,16 +27,16 @@ class RepoIndex extends Component {
     const { repos, fetchRepos, pageIndex } = this.props
     const repoArray = repos.map(repo => {
       return (
-        <li key={repo.id}>
-          <p>{repo.name}</p>
-        </li>
+        <Link key={repo.id} to={`repos/${repo.name}/issues`}>
+          <RepoItem repo={repo} />
+        </Link>
       )
     })
     return (
-      <section>
+      <article>
         <ul>{repoArray}</ul>
         <RepoNav fetchRepos={fetchRepos} index={pageIndex} />
-      </section>
+      </article>
     )
   }
 }

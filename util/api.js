@@ -2,7 +2,7 @@
 export const loginUser = code => {
   return fetch(`http://localhost:8080/auth?code=${code}`)
 }
-
+// make general function to add querystring to url
 const addTokenToUrl = url => token => `${url}?access_token=${token}`
 const addPageToUrl = url => page => `${url}&page=${page}`
 
@@ -50,8 +50,11 @@ export const fetchRepos = (token, page) => {
 }
 
 export const fetchIssues = (token, { name, owner: { login } }) => {
+  // remove state=all
   return fetch(
-    addTokenToUrl(`https://api.github.com/repos/${login}/${name}/issues`)(token)
+    addTokenToUrl(`https://api.github.com/repos/${login}/${name}/issues`)(
+      token
+    ) + "&state=all"
   )
     .then(data => data.json())
     .catch(err => console.error(err))

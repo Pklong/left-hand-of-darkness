@@ -7,6 +7,7 @@ import AuthRoute from "./components/util/auth_route"
 
 import App from "./components/left_hand"
 import RepoIndex from "./components/repos/repo_index"
+import RepoItem from "./components/repos/repo_item"
 
 const Root = () => {
   const token = window.localStorage.getItem("gh_token")
@@ -17,7 +18,8 @@ const Root = () => {
         <main>
           <h1>Left Hand of Darkness</h1>
           <Route path="/" component={App} />
-          <AuthRoute path="/repos" component={RepoIndex} />
+          <AuthRoute exact path="/repos" component={RepoIndex} />
+          <AuthRoute path="/repos/:repoName/issues" component={RepoItem} />
         </main>
       </Provider>
     </Router>
