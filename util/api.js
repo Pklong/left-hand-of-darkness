@@ -15,8 +15,8 @@ const segmentLinkHeader = link => {
   if (!link) return {}
 
   return link
-    .split(",")
-    .map(seg => seg.split(";").map(s => s.trim()))
+    .split(',')
+    .map(seg => seg.split(';').map(s => s.trim()))
     .reduce((acc, seg) => {
       const dir = seg[1].split('"')[1]
       acc[dir] = parseLinkHeader(seg[0])
@@ -25,20 +25,20 @@ const segmentLinkHeader = link => {
 }
 
 export const fetchProfile = token => {
-  return fetch(addTokenToUrl("https://api.github.com/user")(token))
+  return fetch(addTokenToUrl('https://api.github.com/user')(token))
     .then(data => data.json())
     .catch(err => console.error(err))
 }
 
 export const fetchRepos = (token, page) => {
   return fetch(
-    addPageToUrl(addTokenToUrl(`https://api.github.com/user/repos`)(token))(
-      page
-    )
+    addPageToUrl(
+      addTokenToUrl(`https://api.github.com/user/repos`)(token)
+    )(page) + '&affiliation=owner'
   )
     .then(data => {
       // response returns two kinds of information (pagination and data) which feels bad?
-      const link = data.headers.get("Link")
+      const link = data.headers.get('Link')
       const pageNavigation = segmentLinkHeader(link)
       pageNavigation.current = String(page)
       return data.json().then(repos => ({
@@ -49,12 +49,22 @@ export const fetchRepos = (token, page) => {
     .catch(err => console.error(err))
 }
 
+export const fetchRepo = (token, username, repoName) => {
+  return fetch(
+    addTokenToUrl(
+      `https://api.github.com/repos/${username}/${repoName}`
+    )(token)
+  )
+    .then(d => d.json())
+    .catch(err => console.error(err))
+}
+
 export const fetchIssues = (token, { name, owner: { login } }) => {
   // remove state=all
   return fetch(
-    addTokenToUrl(`https://api.github.com/repos/${login}/${name}/issues`)(
-      token
-    ) + "&state=all"
+    addTokenToUrl(
+      `https://api.github.com/repos/${login}/${name}/issues`
+    )(token) + '&state=all'
   )
     .then(data => data.json())
     .catch(err => console.error(err))

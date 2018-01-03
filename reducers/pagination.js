@@ -1,5 +1,5 @@
-import { RECEIVE_REPOS, REQUEST_REPOS } from "../actions/repos"
-import { combineReducers } from "redux"
+import { RECEIVE_REPOS, REQUEST_REPOS } from '../actions/repos'
+import { combineReducers } from 'redux'
 
 const defaultPageIndex = {
   first: null,
@@ -22,13 +22,13 @@ const pages = (pages = {}, action) => {
   switch (action.type) {
     case REQUEST_REPOS:
       newPages[action.pageNavigation.current] = {
-        urls: [],
+        names: [],
         fetching: true
       }
       return newPages
     case RECEIVE_REPOS:
       newPages[action.pageNavigation.current] = {
-        urls: action.repos.map(repo => repo.url),
+        names: action.repos.map(repo => repo.name),
         fetching: false
       }
       return newPages
@@ -39,7 +39,7 @@ const pages = (pages = {}, action) => {
 
 export const currentPageRepos = (repos, pages, currentPageIndex) => {
   if (!pages[currentPageIndex]) return []
-  return pages[currentPageIndex].urls.map(repoUrl => repos[repoUrl])
+  return pages[currentPageIndex].names.map(repoName => repos[repoName])
 }
 
 export default combineReducers({ pageIndex, pages })

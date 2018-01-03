@@ -1,17 +1,17 @@
-import * as Api from "../util/api"
+import * as Api from '../util/api'
 
-export const RECEIVE_ISSUES = "RECEIVE_ISSUES"
+export const RECEIVE_ISSUES = 'RECEIVE_ISSUES'
 
-export const receiveIssues = (issues, repoUrl) => {
+export const receiveIssues = (issues, repoName) => {
   return {
     type: RECEIVE_ISSUES,
     issues,
-    repoUrl
+    repoName
   }
 }
 
 export const fetchIssues = repo => (dispatch, getState) => {
   return Api.fetchIssues(getState().session, repo)
-    .then(issues => dispatch(receiveIssues(issues, repo.url)))
+    .then(issues => dispatch(receiveIssues(issues, repo.name)))
     .catch(err => console.error(err))
 }

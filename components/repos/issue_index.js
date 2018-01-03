@@ -1,7 +1,7 @@
-import React, { Component } from "react"
-import { connect } from "react-redux"
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
-import { fetchIssues } from "../../actions/issues"
+import { fetchIssues } from '../../actions/issues'
 
 class IssueIndex extends Component {
   componentDidMount() {
@@ -20,7 +20,7 @@ class IssueIndex extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    issues: state.repos[ownProps.repo.url].issues || []
+    issues: state.repos[ownProps.repo.name].issues || []
   }
 }
 

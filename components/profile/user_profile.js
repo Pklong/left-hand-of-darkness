@@ -1,8 +1,8 @@
-import React, { Component } from "react"
-import { connect } from "react-redux"
-import { Route } from "react-router-dom"
-import { fetchProfile } from "../../actions/profile"
-import RepoIndex from "../repos/repo_index"
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Route } from 'react-router-dom'
+import { fetchProfile } from '../../actions/profile'
+import RepoIndex from '../repos/repo_index'
 
 class UserProfile extends Component {
   componentDidMount() {
