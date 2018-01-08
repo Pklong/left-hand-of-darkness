@@ -69,3 +69,14 @@ export const fetchIssues = (token, { name, owner: { login } }) => {
     .then(data => data.json())
     .catch(err => console.error(err))
 }
+
+export const createIssue = (token, issue, repoName, username) => {
+  return fetch(
+    addTokenToUrl(
+      `https://api.github.com/repos/${username}/${repoName}/issues`
+    )(token),
+    { method: 'POST', mode: 'cors', body: JSON.stringify(issue) }
+  )
+    .then(data => data.json())
+    .catch(err => console.error(err))
+}

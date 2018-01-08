@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
+import IssueItem from './issue_item.js'
+import IssueForm from './issue_form.js'
 import { fetchIssues } from '../../actions/issues'
 
 class IssueIndex extends Component {
@@ -11,10 +13,15 @@ class IssueIndex extends Component {
   render() {
     const issues = this.props.issues.map(issue => (
       <li key={issue.id}>
-        {issue.title}, {issue.state}
+        <IssueItem issue={issue} />
       </li>
     ))
-    return <ul>{issues}</ul>
+    return (
+      <article>
+        <IssueForm repoName={this.props.repo.name} />
+        <ul>{issues}</ul>
+      </article>
+    )
   }
 }
 
